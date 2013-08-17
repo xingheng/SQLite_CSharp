@@ -24,7 +24,7 @@ namespace SQLite_CSharp
                     connection.Open();
                     using (SQLiteDataReader dataReader = command.ExecuteReader())
                     {
-                        if (dataReader.Read())
+                        while (dataReader.Read())
                         {
                             Person p = new Person();
                             p.Id = dataReader.GetInt32(0);

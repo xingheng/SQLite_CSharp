@@ -31,7 +31,7 @@ namespace SQLite_CSharp
         {
             if (listView1.SelectedItems.Count <= 0)
             {
-                SetCurrentPerson(0, "", 0);
+                SetCurrentPerson(null);
                 return;
             }
 
@@ -70,11 +70,16 @@ namespace SQLite_CSharp
             return new Person(id, name, age);
         }
 
-        private void SetCurrentPerson(int id, string name, int age)
+        private void SetCurrentPerson(Person p)
         {
-            txtID.Text = id.ToString();
-            txtName.Text = name;
-            txtAge.Text = age.ToString();
+            if (p != null)
+            {
+                txtID.Text = p.Id.ToString();
+                txtName.Text = p.Name;
+                txtAge.Text = p.Age.ToString();
+            }
+            else
+                txtID.Text = txtName.Text = txtAge.Text = "";
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
@@ -87,6 +92,7 @@ namespace SQLite_CSharp
             {
                 MessageBox.Show("Failed!\r\nret: " + ret.ToString() + "cmdText: " + cmdText, "Insert a row");
             }
+            btnRefreshAll_Click(sender, e);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -99,13 +105,14 @@ namespace SQLite_CSharp
             {
                 MessageBox.Show("Failed!\r\nret: " + ret.ToString() + "cmdText: " + cmdText, "Update a row");
             }
+            btnRefreshAll_Click(sender, e);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count <= 0)
             {
-                SetCurrentPerson(0, "", 0);
+                SetCurrentPerson(null);
                 MessageBox.Show("You should select a item in list view at first.", "Delete a row");
                 return;
             }
@@ -118,6 +125,7 @@ namespace SQLite_CSharp
             {
                 MessageBox.Show("Failed!\r\nret: " + ret.ToString() + "cmdText: " + cmdText, "Delete a row");
             }
+            btnRefreshAll_Click(sender, e);
         }
 
         private void btnRefreshAll_Click(object sender, EventArgs e)
