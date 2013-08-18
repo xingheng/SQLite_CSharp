@@ -39,8 +39,15 @@ namespace SQLite_CSharp
             return result;
         }
 
-        public static Exception SQLiteRequest_Write(string cmdString)
+        public static Exception SQLiteRequest_Write(string cmdString, params object[] argsList)
         {
+#if DEBUG
+            if (argsList.Length % 2 != 0)
+                System.Windows.Forms.MessageBox.Show("The length of argsList is invalid, please check it!");
+            if (argsList.Length / 2 != cmdString.Count(c => c.Equals('@')))
+                System.Windows.Forms.MessageBox.Show("The length of argsList is invalid, please check it!");
+#endif
+
             Exception result = null;
             try
             {
@@ -48,6 +55,10 @@ namespace SQLite_CSharp
                 {
                     using (SQLiteCommand command = new SQLiteCommand(cmdString, connection))
                     {
+                        if (argsList != null && argsList.Length > 0)
+                            for (int i = 0; i < argsList.Length; i += 2)
+                                command.Parameters.AddWithValue(argsList[i].ToString(), argsList[i + 1]);
+
                         command.CommandTimeout = 10;
                         connection.Open(); 
                         command.ExecuteNonQuery();

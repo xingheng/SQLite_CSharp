@@ -86,8 +86,11 @@ namespace SQLite_CSharp
         {
             Person p = GetCurrentPerson();
             string cmdText = "INSERT INTO " + strTableName +
-                " VALUES(" + p.Id.ToString() + ", \"" + p.Name + "\", " + p.Age.ToString() + ")";
-            Exception ret = DBOperation.SQLiteRequest_Write(cmdText);
+                " VALUES(@id,@name,@age)";
+            Exception ret = DBOperation.SQLiteRequest_Write(cmdText,
+                "@id", p.Id,
+                "@name", p.Name,
+                "@age", p.Age);
             if (ret != null)
             {
                 MessageBox.Show("Failed!\r\nret: " + ret.ToString() + "cmdText: " + cmdText, "Insert a row");
@@ -99,8 +102,11 @@ namespace SQLite_CSharp
         {
             Person p = GetCurrentPerson();
             string cmdText = "UPDATE " + strTableName +
-                " SET name=\"" + p.Name + "\", age=" + p.Age.ToString() + " WHERE id = "+ p.Id.ToString();
-            Exception ret = DBOperation.SQLiteRequest_Write(cmdText);
+                " SET name=@name, age=@age WHERE id=@id";
+            Exception ret = DBOperation.SQLiteRequest_Write(cmdText,
+                "@id", p.Id,
+                "@name", p.Name,
+                "@age", p.Age);
             if (ret != null)
             {
                 MessageBox.Show("Failed!\r\nret: " + ret.ToString() + "cmdText: " + cmdText, "Update a row");
@@ -119,8 +125,9 @@ namespace SQLite_CSharp
 
             Person p = GetCurrentPerson();
             string cmdText = "DELETE FROM " + strTableName +
-                " WHERE id=" + p.Id.ToString();
-            Exception ret = DBOperation.SQLiteRequest_Write(cmdText);
+                " WHERE id=@id";
+            Exception ret = DBOperation.SQLiteRequest_Write(cmdText,
+                "@id", p.Id);
             if (ret != null)
             {
                 MessageBox.Show("Failed!\r\nret: " + ret.ToString() + "cmdText: " + cmdText, "Delete a row");
