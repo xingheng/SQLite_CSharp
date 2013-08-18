@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Data.SQLite;
+using System.Data;
 
 namespace SQLite_CSharp
 {
@@ -12,9 +13,9 @@ namespace SQLite_CSharp
     {
         public static string connectionString = "";
 
-        public static ArrayList SQLiteRequest_Read(string cmdString)
+        public static Object SQLiteRequest_Read(string cmdString)
         {
-            ArrayList result = new ArrayList();
+            DataTable result = null;
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -22,18 +23,9 @@ namespace SQLite_CSharp
                 {
                     command.CommandTimeout = 10;
                     connection.Open();
-                    using (SQLiteDataReader dataReader = command.ExecuteReader())
-                    {
-                        while (dataReader.Read())
-                        {
-                            Person p = new Person();
-                            p.Id = dataReader.GetInt32(0);
-                            p.Name = dataReader.GetValue(1).ToString();
-                            p.Age = string.IsNullOrEmpty(dataReader.GetValue(2).ToString()) ? 0 : dataReader.GetInt32(2);
-
-                            result.Add(p);
-                        }
-                    }
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                    result = new DataTable();
+                    adapter.Fill(result);
                 }
             }
             return result;

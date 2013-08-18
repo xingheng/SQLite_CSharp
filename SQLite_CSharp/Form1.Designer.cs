@@ -43,6 +43,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtDBPath = new System.Windows.Forms.TextBox();
+            this.btnChangeDB = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,7 +152,7 @@
             this.btnRefreshAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefreshAll.Location = new System.Drawing.Point(338, 224);
             this.btnRefreshAll.Name = "btnRefreshAll";
-            this.btnRefreshAll.Size = new System.Drawing.Size(100, 23);
+            this.btnRefreshAll.Size = new System.Drawing.Size(114, 23);
             this.btnRefreshAll.TabIndex = 2;
             this.btnRefreshAll.Text = "Refresh All";
             this.btnRefreshAll.UseVisualStyleBackColor = true;
@@ -156,8 +160,9 @@
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -166,7 +171,7 @@
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(303, 290);
+            this.listView1.Size = new System.Drawing.Size(303, 292);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -186,16 +191,55 @@
             // 
             this.columnHeader3.Text = "Age";
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 316);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(89, 12);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Database Path:";
+            // 
+            // txtDBPath
+            // 
+            this.txtDBPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDBPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDBPath.Location = new System.Drawing.Point(107, 316);
+            this.txtDBPath.Name = "txtDBPath";
+            this.txtDBPath.ReadOnly = true;
+            this.txtDBPath.Size = new System.Drawing.Size(486, 14);
+            this.txtDBPath.TabIndex = 5;
+            // 
+            // btnChangeDB
+            // 
+            this.btnChangeDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeDB.Location = new System.Drawing.Point(338, 255);
+            this.btnChangeDB.Name = "btnChangeDB";
+            this.btnChangeDB.Size = new System.Drawing.Size(114, 23);
+            this.btnChangeDB.TabIndex = 6;
+            this.btnChangeDB.Text = "Change Database";
+            this.btnChangeDB.UseVisualStyleBackColor = true;
+            this.btnChangeDB.Click += new System.EventHandler(this.btnChangeDB_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Database file|*.db|All files|*.*";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 314);
+            this.ClientSize = new System.Drawing.Size(605, 337);
+            this.Controls.Add(this.btnChangeDB);
+            this.Controls.Add(this.txtDBPath);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnRefreshAll);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -204,6 +248,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -224,6 +269,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtDBPath;
+        private System.Windows.Forms.Button btnChangeDB;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

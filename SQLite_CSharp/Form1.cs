@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using System.IO;
 
 namespace SQLite_CSharp
 {
@@ -22,9 +23,15 @@ namespace SQLite_CSharp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string connString = @"Data Source=..\..\Resources\person.db";
-            DBOperation.connectionString = connString;
-            btnRefreshAll_Click(sender, e);
+            FileInfo dbFile = new FileInfo(@"..\..\Resources\person.db");
+            if (dbFile.Exists)
+            {
+                string fullpath = dbFile.FullName;
+                txtDBPath.Text = fullpath;
+                string connString = "Data Source=" + fullpath;
+                DBOperation.connectionString = connString;
+                btnRefreshAll_Click(sender, e);
+            }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,13 +146,31 @@ namespace SQLite_CSharp
         {
             listView1.Items.Clear();
 
-            ArrayList list = DBOperation.SQLiteRequest_Read("SELECT * FROM " + strTableName);
-            foreach (Person item in list)
+            DataTable dt = null;
+            dt = (DataTable)DBOperation.SQLiteRequest_Read("SELECT * FROM " + strTableName);
+            foreach (DataRow row in dt.Rows)
             {
-                ListViewItem viewItem = new ListViewItem(
-                    new string[] { item.Id.ToString(), item.Name, item.Age.ToString() });
+                int count = row.ItemArray.Length;
+                string[] cellList = new string[count];
+                for (int i = 0; i < count; i++)
+                    cellList[i] = row.ItemArray[i].ToString();
+
+                ListViewItem viewItem = new ListViewItem(cellList);
                 listView1.Items.Add(viewItem);
             }
         }
+
+        private void btnChangeDB_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filepath = openFileDialog1.FileName;
+                txtDBPath.Text = filepath;
+                string connString = "Data Source=" + filepath;
+                DBOperation.connectionString = connString;
+                btnRefreshAll_Click(sender, e);
+            }
+        }
+
     }
 }
