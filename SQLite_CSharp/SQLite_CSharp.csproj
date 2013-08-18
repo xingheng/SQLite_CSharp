@@ -89,8 +89,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>if exist $(OutDir)\SQLite.Interop.dll  del $(OutDir)\SQLite.Interop.dll
-if exist $(OutDir)\System.Data.SQLite.dll  del $(OutDir)\System.Data.SQLite.dll</PreBuildEvent>
+    <PreBuildEvent>if exist $(TargetDir)\SQLite.Interop.dll  del $(TargetDir)\SQLite.Interop.dll
+if exist $(TargetDir)\System.Data.SQLite.dll  del $(TargetDir)\System.Data.SQLite.dll</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(ProjectDir)\Resources\System.Data.SQLite.dll $(TargetDir)\System.Data.SQLite.dll
