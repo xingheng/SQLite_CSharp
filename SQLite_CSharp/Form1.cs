@@ -22,7 +22,7 @@ namespace SQLite_CSharp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string connString = "Data Source=" + Application.StartupPath + "\\person.db";
+            string connString = @"Data Source=..\..\Resources\person.db";
             DBOperation.connectionString = connString;
             btnRefreshAll_Click(sender, e);
         }
